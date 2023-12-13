@@ -1,0 +1,8 @@
+celery
+redis
+pydantic
+pydantic-settings
+pandas
+openpyxl
+SQLAlchemy
+psycopg2

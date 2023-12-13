@@ -1,0 +1,13 @@
+celery
+redis
+pydantic
+pydantic-settings
+openpyxl
+SQLAlchemy
+psycopg2
+fastapi
+asyncpg
+greenlet
+uvicorn
+python-multipart
+aiofiles
