@@ -24,5 +24,5 @@ class CeleryAdapter(AbstractWorkerAdapter):
         self._celery_app.send_task(
             'tasks.delete_records',
             kwargs={'file_id': file_id},
-            countdown=60
+            countdown=360
         )
