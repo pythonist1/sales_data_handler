@@ -15,9 +15,9 @@ class Sales:
         return self._empty_dates
 
     def _check_sales_data(self):
-        for key, value in self._sales_data.items():
-            if value == '':
-                self._empty_dates.append(key)
+        for date, sales in self._sales_data.items():
+            if sales == '':
+                self._empty_dates.append(date)
 
     def complete_empty_data(self, additional_data: dict):
         for key, value in additional_data.items():
