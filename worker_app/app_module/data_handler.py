@@ -17,6 +17,12 @@ class SalesDataHandler:
         try:
             result = self._handle_sales_data(file_id)
             return result
+        except BaseDataHandlerException as exp:
+            self._repository.log_error(description=str(exp), file_id=file_id)
+            return {
+                'status': 'ERROR',
+                'message': str(exp)
+            }
         except Exception as exp:
             return {
                 'status': 'ERROR',
@@ -24,31 +30,23 @@ class SalesDataHandler:
             }
 
     def _handle_sales_data(self, file_id: str) -> dict:
-        try:
-            sales_data = self._file_handler.extract_data_from_file(file_id=file_id)
-            sales = Sales(sales_data=sales_data)
+        sales_data = self._file_handler.extract_data_from_file(file_id=file_id)
+        sales = Sales(sales_data=sales_data)
 
-            if sales.empty_dates:
-                additional_data = self._sales_service_adapter.get_sales_by_dates(
-                    dates=sales.empty_dates
-                )
-                sales.complete_empty_data(additional_data=additional_data)
-
-            self._file_handler.collect_file(
-                sales_data=sales.sales_data,
-                file_id=file_id
+        if sales.empty_dates:
+            additional_data = self._sales_service_adapter.get_sales_by_dates(
+                dates=sales.empty_dates
             )
+            sales.complete_empty_data(additional_data=additional_data)
 
-            return {
-                'status': 'SUCCESS',
-            }
+        self._file_handler.collect_file(
+            sales_data=sales.sales_data,
+            file_id=file_id
+        )
 
-        except BaseDataHandlerException as exp:
-            self._repository.log_error(description=str(exp))
-            return {
-                'status': 'ERROR',
-                'message': str(exp)
-            }
+        return {
+            'status': 'SUCCESS',
+        }
 
     def delete_records(self, file_id: str):
         try:

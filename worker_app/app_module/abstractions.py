@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 
 class AbstractRepository(ABC):
     @abstractmethod
-    def log_error(self, description: str):
+    def log_error(self, description: str, file_id: str):
         pass
 
     @abstractmethod

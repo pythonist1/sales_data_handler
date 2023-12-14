@@ -1,10 +1,10 @@
 from uuid import uuid4
-from worker_app.app.bootstrap import bootstrap_repository
+from worker_app.app_module.bootstrap import bootstrap_repository
 
 
 def test_repository_log_error():
     repository = bootstrap_repository()
-    repository.log_error('description')
+    repository.log_error('description', uuid4())
 
 def test_repository_delete_records():
     repository = bootstrap_repository()

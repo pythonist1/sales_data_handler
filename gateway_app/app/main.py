@@ -1,14 +1,16 @@
 import uvicorn
 from fastapi import FastAPI
 from .settings import config
-from .gateway.exception_handler import base_exception_handler
+from .gateway.exception_handler import base_exception_handler, gateway_app_exception_handler
 from .gateway.api import router
+from .exceptions import BaseGatewayAppException
 
 
 app = FastAPI(
     docs_url=config.docs_url,
     exception_handlers={
-        Exception: base_exception_handler
+        Exception: base_exception_handler,
+        BaseGatewayAppException: gateway_app_exception_handler
     }
 )
 

@@ -28,14 +28,14 @@ class FileHandler(AbstractFileHandler):
             for i, row in result.iterrows():
                 row_dict = row.to_dict()
                 if not isinstance(row_dict['Date'], pd.Timestamp):
-                    raise FileValidationError('Значение столбца Date должно быть строкой в формате даты YYYY-MM-DD')
+                    raise FileValidationError('Значение поля в столбце Date должно быть строкой в формате даты YYYY-MM-DD')
                 try:
                     sales = float(row_dict['Sales'])
                 except ValueError:
                     if row_dict['Sales'] == '':
                         sales = row_dict['Sales']
                     else:
-                        raise FileValidationError('Значение столбца Sale может быть числом или пустым')
+                        raise FileValidationError('Значение поля в столбце Sales должно быть числом или пустым')
                 sales_data[row_dict['Date'].date()] = sales
             if not sales_data:
                 raise FileValidationError('Таблица пустая')
