@@ -20,5 +20,5 @@ class Sales:
                 self._empty_dates.append(date)
 
     def complete_empty_data(self, additional_data: dict):
-        for key, value in additional_data.items():
-            self._sales_data[key] = value
+        for date, sales in additional_data.items():
+            self._sales_data[date] = sales
